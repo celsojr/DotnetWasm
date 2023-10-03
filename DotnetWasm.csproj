@@ -4,11 +4,18 @@
     <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WasmMainJSPath>main.js</WasmMainJSPath>
+    <LangVersion>preview</LangVersion>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>full</TrimMode>
+    <RunAOTCompilation>true</RunAOTCompilation>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <WasmExtraFilesToDeploy Include="index.html" />
-    <WasmExtraFilesToDeploy Include="main.js" />
-    <WasmExtraFilesToDeploy Include="modules.js" />
+    <WasmExtraFilesToDeploy Include="favicon.ico" />
+    <WasmExtraFilesToDeploy Include="*.js" />
+    <WasmExtraFilesToDeploy Include="*.css" />
   </ItemGroup>
 </Project>

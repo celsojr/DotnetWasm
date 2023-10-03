@@ -1,11 +1,6 @@
-using System;
-using System.Runtime.InteropServices.JavaScript;
-
-using static ConsoleInterop;
-using static WindowInterop;
-
 Console.WriteLine("Hello, Browser!");
 
+[SupportedOSPlatform("browser")]
 public partial class Program
 {
     [JSExport]
