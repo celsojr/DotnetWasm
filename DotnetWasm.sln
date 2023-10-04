@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetWasm", "DotnetWasm.csproj", "{F82DD076-918D-4EF2-802C-8E2292BACF71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotnetWasm", "src\DotnetWasm.csproj", "{F82DD076-918D-4EF2-802C-8E2292BACF71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightTests", "test\PlaywrightTests.csproj", "{E8F58606-C922-4AF8-91CC-B49F94C21CC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B28EACF9-1B53-4AB8-9563-A1B252061615}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B4E39291-3587-40B5-9D82-6C0C4BF6DC6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +21,19 @@ Global
 		{F82DD076-918D-4EF2-802C-8E2292BACF71}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F82DD076-918D-4EF2-802C-8E2292BACF71}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F82DD076-918D-4EF2-802C-8E2292BACF71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8F58606-C922-4AF8-91CC-B49F94C21CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F58606-C922-4AF8-91CC-B49F94C21CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F58606-C922-4AF8-91CC-B49F94C21CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F58606-C922-4AF8-91CC-B49F94C21CC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F82DD076-918D-4EF2-802C-8E2292BACF71} = {B28EACF9-1B53-4AB8-9563-A1B252061615}
+		{E8F58606-C922-4AF8-91CC-B49F94C21CC8} = {B4E39291-3587-40B5-9D82-6C0C4BF6DC6A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CCE537AD-84DA-4817-8841-891DD20649D5}
 	EndGlobalSection
 EndGlobal
