@@ -24,7 +24,7 @@ public partial class WindowInterop
     /// </summary>
     /// <param name="message">A string you want to display in the alert dialog</param>
     [JSImport("globalThis.window.alert")]
-    internal static partial void Alert([JSMarshalAs<JSType.String>] string message);
+    internal static partial void Alert(string message);
 
     private string? GetDebuggerDisplay()
     {

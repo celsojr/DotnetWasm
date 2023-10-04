@@ -19,5 +19,5 @@ const exports = await getAssemblyExports(config.mainAssemblyName)
 const text = exports.Program.Greeting()
 console.log(text)
 
-document.getElementById('out').innerHTML = text
+document.querySelector('span').innerText = text
 await dotnet.run()

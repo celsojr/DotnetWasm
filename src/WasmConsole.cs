@@ -8,10 +8,10 @@ public partial class ConsoleInterop
     }
 
     [JSImport("globalThis.console.warn")]
-    internal static partial void Warn([JSMarshalAs<JSType.String>] string message);
+    internal static partial void Warn(string message);
 
     [JSImport("globalThis.console.error")]
-    internal static partial void Error([JSMarshalAs<JSType.String>] string message);
+    internal static partial void Error(string message);
 
     private string? GetDebuggerDisplay()
     {
