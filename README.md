@@ -24,3 +24,15 @@ Or you can start any static file server from the AppBundle directory:
 dotnet tool install dotnet-serve
 dotnet serve -d:bin/$(Configuration)/net8.0/browser-wasm/AppBundle
 ```
+
+## How to test with Playwright
+In first console
+```
+dotnet run --project ./src/DotnetWasm.csproj
+```
+In second console
+```
+dotnet build test\PlaywrightTests.csproj
+pwsh test/bin/Debug/net7.0/playwright.ps1 install
+dotnet test test\PlaywrightTests.csproj
+```
