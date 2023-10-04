@@ -33,6 +33,6 @@ dotnet run --project ./src/DotnetWasm.csproj
 In second console
 ```
 dotnet build test\PlaywrightTests.csproj
-pwsh test/bin/Debug/net7.0/playwright.ps1 install
+pwsh test/bin/$(Configuration)/net7.0/playwright.ps1 install
 dotnet test test\PlaywrightTests.csproj
 ```
