@@ -21,7 +21,7 @@ dotnet run -c Debug/Release
 Or you can start any static file server from the AppBundle directory:
 
 ```
-dotnet tool install dotnet-serve
+dotnet tool install dotnet-serve --global
 dotnet serve -d:bin/$(Configuration)/net8.0/browser-wasm/AppBundle
 ```
 
