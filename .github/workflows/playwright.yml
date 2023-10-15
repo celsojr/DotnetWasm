@@ -96,7 +96,7 @@ jobs:
         echo "DOTNET_SERVE_PORT=8080" >> "$GITHUB_ENV"
 
     - name: Start Python HTTP server
-      run: python3 -m http.server $DOTNET_SERVE_PORT --directory src/bin/Release/net8.0/browser-wasm/AppBundle/
+      run: nohup python3 -m http.server $DOTNET_SERVE_PORT --directory src/bin/Release/net8.0/browser-wasm/AppBundle/
 
     - name: Set environment variable for Python server URL
       run: echo "export PYTHON_SERVER_URL=http://127.0.0.1:8080" >> $GITHUB_ENV
