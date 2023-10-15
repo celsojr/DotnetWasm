@@ -1,4 +1,62 @@
-name: Playwright Tests
+# name: Playwright Tests
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   build-and-test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
+
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v2
+#       with:
+#         dotnet-version: 8.0.x
+#         include-prerelease: true
+
+#     - name: Install workloads
+#       run: dotnet workload restore src/DotnetWasm.csproj
+
+#     - name: Build DotnetWasm project
+#       run: dotnet build -c Release src/DotnetWasm.csproj
+
+#     # - name: Install dotnet-serve
+#     #   run: dotnet tool install dotnet-serve --global
+
+#     # - name: Set the value
+#     #   id: step_one
+#     #   run: |
+#     #     echo "DOTNET_SERVE_PORT=8080" >> "$GITHUB_ENV"
+
+#     # - name: Serve DotnetWasm project
+#     #   run: |
+#     #     dotnet serve -p $DOTNET_SERVE_PORT -d:src/bin/Release/net8.0/browser-wasm/AppBundle/ &
+#     #     echo "DotnetWasm server is running in the background."
+
+#     - name: Start Python HTTP server
+#       run: python3 -m http.server 8080 --directory src/bin/Release/net8.0/browser-wasm/AppBundle/ &
+
+#     - name: Build and Install PlaywrightTests
+#       run: |
+#         dotnet build -c Release test/PlaywrightTests.csproj
+#         pwsh test/bin/Release/net8.0/playwright.ps1 install
+
+#     - name: Run PlaywrightTests
+#       run: dotnet test test/PlaywrightTests.csproj --filter FullyQualifiedName~PlaywrightTests --configuration Release --collect:"XPlat Code Coverage"
+
+#       env:
+#         DOTNET_CLI_TELEMETRY_OPTOUT: true
+#         DOTNET_ROOT: /home/runner/.dotnet
+
+
+
+
+name: DotnetWasm CI
 
 on:
   push:
@@ -9,6 +67,13 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    services:
+      python-server:
+        image: python:3
+        ports:
+          - 8080/tcp
+        options: --entrypoint "/bin/sh"
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -16,7 +81,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: '8.0.x'
         include-prerelease: true
 
     - name: Install workloads
@@ -25,31 +90,36 @@ jobs:
     - name: Build DotnetWasm project
       run: dotnet build -c Release src/DotnetWasm.csproj
 
-    # - name: Install dotnet-serve
-    #   run: dotnet tool install dotnet-serve --global
-
-    # - name: Set the value
-    #   id: step_one
-    #   run: |
-    #     echo "DOTNET_SERVE_PORT=8080" >> "$GITHUB_ENV"
-
-    # - name: Serve DotnetWasm project
-    #   run: |
-    #     dotnet serve -p $DOTNET_SERVE_PORT -d:src/bin/Release/net8.0/browser-wasm/AppBundle/ &
-    #     echo "DotnetWasm server is running in the background."
+    - name: Set the value
+      id: step_one
+      run: |
+        echo "DOTNET_SERVE_PORT=8080" >> "$GITHUB_ENV"
 
     - name: Start Python HTTP server
-      run: python3 -m http.server 8080 --directory src/bin/Release/net8.0/browser-wasm/AppBundle/ &
+      run: python3 -m http.server $DOTNET_SERVE_PORT --directory src/bin/Release/net8.0/browser-wasm/AppBundle/
 
-    - name: Build and Install PlaywrightTests
-      run: |
-        dotnet build -c Release test/PlaywrightTests.csproj
-        pwsh test/bin/Release/net8.0/playwright.ps1 install
+    - name: Set environment variable for Python server URL
+      run: echo "export PYTHON_SERVER_URL=http://127.0.0.1:8080" >> $GITHUB_ENV
+
+  run-tests:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0.x'
+        include-prerelease: true
+
+    - name: Wait for Python HTTP server to start
+      run: sleep 5  # Adjust the duration based on your project's startup time
 
     - name: Run PlaywrightTests
-      run: dotnet test test/PlaywrightTests.csproj --filter FullyQualifiedName~PlaywrightTests --configuration Release --collect:"XPlat Code Coverage"
-
-      env:
-        DOTNET_CLI_TELEMETRY_OPTOUT: true
-        DOTNET_ROOT: /home/runner/.dotnet
+      run: |
+        dotnet test test/PlaywrightTests.csproj --filter FullyQualifiedName~PlaywrightTests --configuration Release --collect:"XPlat Code Coverage"
+        echo "Python server URL: $PYTHON_SERVER_URL"
 
