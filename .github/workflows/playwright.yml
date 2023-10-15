@@ -23,7 +23,8 @@ jobs:
       run: dotnet workload restore src/DotnetWasm.csproj
 
     - name: Build DotnetWasm project
-      run: dotnet run --project src/DotnetWasm.csproj
+      run: dotnet build src/DotnetWasm.csproj
+
 
     - name: Install dotnet-serve
       run: dotnet tool install dotnet-serve --global
