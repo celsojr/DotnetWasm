@@ -1,0 +1,46 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Build DotnetWasm project
+      run: dotnet run --project src/DotnetWasm.csproj
+
+    - name: Install dotnet-serve
+      run: dotnet tool install dotnet-serve --global
+
+    - name: Serve DotnetWasm project
+      run: |
+        dotnet serve -d:bin/$(Configuration)/net8.0/browser-wasm/AppBundle &
+        echo "DotnetWasm server is running in the background."
+
+    - name: Build and Install PlaywrightTests
+      run: |
+        dotnet build test/PlaywrightTests.csproj
+        pwsh test/bin/$(Configuration)/net7.0/playwright.ps1 install
+
+    - name: Get DotnetWasm project port
+      id: get-port
+      run: echo "::set-output name=port::$(shuf -i 8080-8090 -n 1)"  # Adjust port range as needed
+
+    - name: Run PlaywrightTests
+      run: dotnet test test/PlaywrightTests.csproj --filter FullyQualifiedName~PlaywrightTests --configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"
+
+      env:
+        DOTNET_SERVE_PORT: ${{ steps.get-port.outputs.port }}
+
