@@ -118,8 +118,13 @@ jobs:
         dotnet-version: '8.0.x'
         include-prerelease: true
 
-    - name: Wait for Python HTTP server to start
-      run: sleep 5  # Adjust the duration based on your project's startup time
+    # - name: Wait for Python HTTP server to start
+    #   run: sleep 5  # Adjust the duration based on your project's startup time
+
+    - name: Build and Install PlaywrightTests
+      run: |
+        dotnet build -c Release test/PlaywrightTests.csproj
+        pwsh test/bin/Release/net8.0/playwright.ps1 install
 
     - name: Run PlaywrightTests
       run: |
