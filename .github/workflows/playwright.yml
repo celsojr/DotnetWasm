@@ -44,7 +44,7 @@ jobs:
         pwsh test/bin/Release/net8.0/playwright.ps1 install
 
     - name: Run PlaywrightTests
-      run: dotnet test -c Release test/PlaywrightTests.csproj --filter FullyQualifiedName~PlaywrightTests --configuration Release --collect:"XPlat Code Coverage"
+      run: dotnet test test/PlaywrightTests.csproj --filter FullyQualifiedName~PlaywrightTests --configuration Release --collect:"XPlat Code Coverage"
 
       env:
         DOTNET_CLI_TELEMETRY_OPTOUT: true
