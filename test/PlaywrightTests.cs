@@ -31,16 +31,15 @@ public class PlaywrightTests
             // Wait for the page load
             await Task.Delay(5000);
 
-            // Content from the wasm is not being rendered to the span correctly
-            // Get the full page content
-            //var pageContent = await page.ContentAsync();
-
-            // Assert
-            //Assert.Contains($"Hello, World! Greetings from {homeUrl}", pageContent);
-
             // Assert the title
             var pageTitle = await page.TitleAsync();
             Assert.Equal("Dotnet Wasm", pageTitle);
+
+            // Get the full page content
+            var pageContent = await page.ContentAsync();
+
+            // Assert
+            Assert.Contains($"Hello, World! Greetings from {homeUrl}", pageContent);
 
             //var spanInnerText = await page.Locator("span").TextContentAsync();
             //Assert.Equal($"Hello, World! Greetings from {homeUrl}", spanInnerText);

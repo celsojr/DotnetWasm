@@ -25,18 +25,21 @@ jobs:
     - name: Build DotnetWasm project
       run: dotnet build -c Release src/DotnetWasm.csproj
 
-    - name: Install dotnet-serve
-      run: dotnet tool install dotnet-serve --global
+    # - name: Install dotnet-serve
+    #   run: dotnet tool install dotnet-serve --global
 
-    - name: Set the value
-      id: step_one
-      run: |
-        echo "DOTNET_SERVE_PORT=8080" >> "$GITHUB_ENV"
+    # - name: Set the value
+    #   id: step_one
+    #   run: |
+    #     echo "DOTNET_SERVE_PORT=8080" >> "$GITHUB_ENV"
 
-    - name: Serve DotnetWasm project
-      run: |
-        dotnet serve -p $DOTNET_SERVE_PORT -d:src/bin/Release/net8.0/browser-wasm/AppBundle/ &
-        echo "DotnetWasm server is running in the background."
+    # - name: Serve DotnetWasm project
+    #   run: |
+    #     dotnet serve -p $DOTNET_SERVE_PORT -d:src/bin/Release/net8.0/browser-wasm/AppBundle/ &
+    #     echo "DotnetWasm server is running in the background."
+
+    - name: Start Python HTTP server
+      run: python3 -m http.server 8080 --directory src/bin/Release/net8.0/browser-wasm/AppBundle/ &
 
     - name: Build and Install PlaywrightTests
       run: |
