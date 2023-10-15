@@ -1,5 +1,7 @@
 ## .NET WebAssembly Browser app
 
+[![create-playwright CI](https://github.com/microsoft/create-playwright/actions/workflows/ci.yml/badge.svg)](https://github.com/celsojr/DotnetWasm/actions/workflows/playwright.yml)
+
 ## Build
 
 You can build the app from Visual Studio or from the command-line:

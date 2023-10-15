@@ -37,7 +37,7 @@ jobs:
     - name: Build and Install PlaywrightTests
       run: |
         dotnet build test/PlaywrightTests.csproj
-        pwsh test/bin/Release/net7.0/playwright.ps1 install
+        pwsh test/bin/Release/net8.0/playwright.ps1 install
 
     - name: Get DotnetWasm project port
       id: get-port
