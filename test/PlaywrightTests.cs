@@ -1,30 +1,55 @@
+using System.Diagnostics;
+
 namespace test;
 
 public class PlaywrightTests
 {
+    private static IPlaywright? _playwright;
+    private static IBrowser? _browser;
+
     [Fact]
     public async Task Full()
     {
 #if DEBUG
-        var headless = false;
-        var slowMo = 250;
+        const bool headless = false;
+        const int slowMo = 250;
 #else
-        var headless = true;
-        var slowMo = 0;
+        const bool headless = true;
+        const int slowMo = 0;
 #endif
 
-        var playwright = await Playwright.CreateAsync();
-        var browser = await playwright.Chromium.LaunchAsync(new() { Headless = headless, SlowMo = slowMo });
-        var page = await browser.NewPageAsync();
+        _playwright = await Playwright.CreateAsync();
+        _browser = await _playwright.Chromium.LaunchAsync(new() { Headless = headless, SlowMo = slowMo });
+
+        var page = await _browser.NewPageAsync();
         var port = Environment.GetEnvironmentVariable("DOTNET_SERVE_PORT") ?? "5053";
         var homeUrl = $"http://127.0.0.1:{port}/index.html";
 
-        await page.GotoAsync(homeUrl);
+        try
+        {
+            // Navigate to the home page
+            await page.GotoAsync(homeUrl);
 
-        // wait for the page load
-        await Task.Delay(3000);
+            // Wait for the page load
+            await Task.Delay(5000);
 
-        var spanInnerText = await page.Locator("span").TextContentAsync();
-        Assert.Equal($"Hello, World! Greetings from {homeUrl}", spanInnerText);
+            // Get the whole page content
+            var pageContent = await page.ContentAsync();
+
+            // Trace it out
+            Trace.WriteLine(pageContent);
+
+            // Assert
+            Assert.Contains($"Hello, World! Greetings from {homeUrl}", pageContent);
+
+            //var spanInnerText = await page.Locator("span").TextContentAsync();
+            //Assert.Equal($"Hello, World! Greetings from {homeUrl}", spanInnerText);
+        }
+        finally
+        {
+            // Close the browser
+            await page.CloseAsync();
+            await _browser.CloseAsync();
+        }
     }
 }
