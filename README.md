@@ -1,6 +1,6 @@
 ## .NET WebAssembly Browser app
 
-[![create-playwright CI](https://github.com/microsoft/create-playwright/actions/workflows/ci.yml/badge.svg)](https://github.com/celsojr/DotnetWasm/actions/workflows/playwright.yml)
+[![DotnetWasm CI](https://github.com/celsojr/DotnetWasm/actions/workflows/playwright.yml/badge.svg)](https://github.com/celsojr/DotnetWasm/actions/workflows/playwright.yml)
 
 ## Build
 

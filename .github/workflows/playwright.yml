@@ -125,9 +125,10 @@ jobs:
       run: |
         dotnet build -c Release test/PlaywrightTests.csproj
         pwsh test/bin/Release/net8.0/playwright.ps1 install
+        echo "Python server URL: $PYTHON_SERVER_URL"
 
     - name: Run PlaywrightTests
       run: |
         dotnet test test/PlaywrightTests.csproj --filter FullyQualifiedName~PlaywrightTests --configuration Release --collect:"XPlat Code Coverage"
-        echo "Python server URL: $PYTHON_SERVER_URL"
+
 
