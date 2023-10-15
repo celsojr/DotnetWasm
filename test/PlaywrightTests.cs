@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace test;
 
 public class PlaywrightTests
@@ -35,9 +33,6 @@ public class PlaywrightTests
 
             // Get the whole page content
             var pageContent = await page.ContentAsync();
-
-            // Trace it out
-            Trace.WriteLine(pageContent);
 
             // Assert
             Assert.Contains($"Hello, World! Greetings from {homeUrl}", pageContent);
