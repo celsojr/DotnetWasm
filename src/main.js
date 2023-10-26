@@ -3,21 +3,16 @@
 
 import { dotnet } from './dotnet.js'
 
-const { setModuleImports, getAssemblyExports, getConfig } = await dotnet.create()
+await dotnet
+    .withDebugging(1)
+    .withDiagnosticTracing(false)
+    .withApplicationArgumentsFromQuery()
+    .create();
 
-setModuleImports("main.js", {
-    window: {
-        location: {
-            // Properties need special attention when importing
-            href: () => globalThis.window.location.href
-        }
-    }
-})
+dotnet.instance.Module['canvas'] = document.getElementById('canvas');
 
-const config = getConfig()
-const exports = await getAssemblyExports(config.mainAssemblyName)
-const text = exports.Program.Greeting()
-console.log(text)
+// We're ready to dotnet.run, so let's remove the spinner
+const loading_div = document.getElementById('spinner');
+loading_div.remove();
 
-document.querySelector('span').innerText = text
-await dotnet.run()
+await dotnet.run();

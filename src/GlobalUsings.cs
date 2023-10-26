@@ -1,8 +1,6 @@
 ﻿global using System;
-global using System.Diagnostics;
-global using System.Runtime.Versioning;
-global using System.Runtime.InteropServices.JavaScript;
+global using System.Numerics;
 
-// Static usings
-global using static DotnetWasm.ConsoleInterop;
-global using static DotnetWasm.WindowInterop;
+global using Raylib_cs;
+global using static Raylib_cs.Raylib;
+global using static Raylib_cs.Color;
