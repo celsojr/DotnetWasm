@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Runtime.InteropServices;
 
 namespace DotnetWasm
 {
@@ -27,7 +28,7 @@ namespace DotnetWasm
         internal static unsafe void FreeSbytePtr(sbyte* sbytePtr)
         {
             // Free the allocated memory
-            System.Runtime.InteropServices.Marshal.FreeHGlobal((IntPtr)sbytePtr);
+            Marshal.FreeHGlobal((IntPtr)sbytePtr);
         }
     }
 }
