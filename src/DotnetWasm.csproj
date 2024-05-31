@@ -6,10 +6,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WasmMainJSPath>main.js</WasmMainJSPath>
     <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <PublishTrimmed>true</PublishTrimmed>
     <TrimMode>full</TrimMode>
     <RunAOTCompilation>true</RunAOTCompilation>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,5 +19,10 @@
     <WasmExtraFilesToDeploy Include="favicon.ico" />
     <WasmExtraFilesToDeploy Include="*.js" />
     <WasmExtraFilesToDeploy Include="*.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Evergine.Bindings.WebGPU" Version="*" />
+    <PackageReference Include="Microsoft.JSInterop" Version="8.0.6" />
   </ItemGroup>
 </Project>

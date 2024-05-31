@@ -26,7 +26,7 @@ public partial class WindowInterop
     [JSImport("globalThis.window.alert")]
     internal static partial void Alert(string message);
 
-    private string? GetDebuggerDisplay()
+    private string GetDebuggerDisplay()
     {
         return this.ToString();
     }

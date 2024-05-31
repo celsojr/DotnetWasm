@@ -13,7 +13,7 @@ public partial class ConsoleInterop
     [JSImport("globalThis.console.error")]
     internal static partial void Error(string message);
 
-    private string? GetDebuggerDisplay()
+    private string GetDebuggerDisplay()
     {
         return this.ToString();
     }
