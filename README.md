@@ -7,6 +7,7 @@
 You can build the app from Visual Studio or from the command-line:
 
 ```
+dotnet workload restore --skip-sign-check
 dotnet build -c Debug/Release
 ```
 
@@ -49,7 +50,7 @@ dotnet run --project ./src/DotnetWasm.csproj
 ```
 In second console
 ```
-dotnet build test\PlaywrightTests.csproj
+dotnet build test/PlaywrightTests.csproj
 pwsh test/bin/$(Configuration)/net7.0/playwright.ps1 install
-dotnet test test\PlaywrightTests.csproj
+dotnet test test/PlaywrightTests.csproj
 ```
