@@ -29,7 +29,7 @@ dotnet serve -d:bin/$(Configuration)/net8.0/browser-wasm/AppBundle
 ```
 
 ## Run Raylib games
-Installing the wasm tools for net7.0
+Installing the wasm tools for net7.0 (Support for net7.0 only at the moment)
 ```
 dotnet workload restore --skip-sign-check
 ```

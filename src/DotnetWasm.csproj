@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -49,6 +49,5 @@
 
   <ItemGroup>
     <PackageReference Include="Evergine.Bindings.WebGPU" Version="*" />
-    <PackageReference Include="Microsoft.JSInterop" Version="8.0.6" />
   </ItemGroup>
 </Project>
